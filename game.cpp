@@ -10,8 +10,8 @@ void loadResources(void)
     RM.loadSprite("sprites/ground-tile.txt", "ground_tile");
     RM.loadSprite("sprites/runner.txt", "runner");
     RM.loadSprite("sprites/runner-duck.txt", "runner_duck");
-    RM.loadSprite("sprites/rock-spr.txt", "rock");
-    RM.loadSprite("sprites/panther-spr.txt", "panther");
+    RM.loadSprite("sprites/characters/rock-spr.txt", "rock");
+    RM.loadSprite("sprites/characters/panther-spr.txt", "panther");
     //RM.loadSprite("sprites/world/gamestart-spr.txt", "game_start"); (we can code this in for final build most likely)
 
     RM.loadSound("sounds/sfx/step_sand_02.wav", "jump");
