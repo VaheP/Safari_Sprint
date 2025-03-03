@@ -4,11 +4,12 @@
 #include "LogManager.h"
 #include "ResourceManager.h"
 #include "InputManager.h"
+#include "GameOver.h"
 
 ss::Runner::Runner() {
     float world_height = WM.getView().getVertical();
     float player_height = getBox().getVertical();
-    Runner(df::Vector(10, world_height - player_height/2 + 0.5));
+    Runner(df::Vector(10, world_height - player_height / 2 + 0.5));
 }
 
 ss::Runner::Runner(df::Vector position) {
@@ -22,10 +23,15 @@ ss::Runner::Runner(df::Vector position) {
     ground_y = position.getY();
     setPosition(position);
 }
-int ss::Runner::eventHandler(const df::Event *p_e) {
+
+ss::Runner::~Runner() {
+    new GameOver();
+}
+
+int ss::Runner::eventHandler(const df::Event* p_e) {
     if (p_e->getType() == df::KEYBOARD_EVENT)
     {
-        const df::EventKeyboard *p_keyboard_event = dynamic_cast<const df::EventKeyboard *>(p_e);
+        const df::EventKeyboard* p_keyboard_event = dynamic_cast<const df::EventKeyboard*>(p_e);
 
         kbd(p_keyboard_event);
         return 1;
@@ -37,7 +43,7 @@ int ss::Runner::eventHandler(const df::Event *p_e) {
     return 0;
 }
 
-void ss::Runner::kbd(const df::EventKeyboard *p_keyboard_event)
+void ss::Runner::kbd(const df::EventKeyboard* p_keyboard_event)
 {
     switch (p_keyboard_event->getKey())
     {
@@ -62,7 +68,8 @@ void ss::Runner::duck(bool ducking) {
         if (m_ducking) {
             setPosition(df::Vector(getPosition().getX(), ground_y + 0.5));
             setSprite("runner_duck");
-        } else {
+        }
+        else {
             setPosition(df::Vector(getPosition().getX(), ground_y));
             setSprite("runner");
         }
@@ -87,13 +94,13 @@ void ss::Runner::step() {
         m_grounded = true;
     }
 
-    
+
 }
 
 void ss::Runner::jump() {
     if (m_grounded && !m_ducking) {
         m_jump_sound->play();
-        m_velocity.setY(-3.0f);  
+        m_velocity.setY(-3.0f);
         m_grounded = false;
     }
 }

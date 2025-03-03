@@ -7,20 +7,29 @@
 #include "EventStep.h"
 #include "LogManager.h"
 #include "Spawning.h"
+#include "GameOver.h"
+#include "GameManager.h"
 #include <stdlib.h>	
 
 ss::GameStart::GameStart() {
     setType("GameStart");
+    setSprite("game_start");
     setLocation(df::CENTER_CENTER);
-    p_points = new Points();
-    start();
+    registerInterest(df::KEYBOARD_EVENT);
+    //start();
 }
 
 void ss::GameStart::start() {
+    setActive(false);
+
+    // Create game world objects
     createGroundTiles();
+    p_points = new Points();
     new Runner(df::Vector(10, 19.5));
     new Spawning();
-    setActive(false);
+
+    // Register for game step events
+    registerInterest(df::STEP_EVENT);
 }
 
 void ss::GameStart::createGroundTiles() {
@@ -40,14 +49,65 @@ void ss::GameStart::createGroundTiles() {
 }
 
 int ss::GameStart::eventHandler(const df::Event* p_e) {
-    if (p_e->getType() == df::STEP_EVENT) {
-        LM.writeLog("GameStart: Step event received! Checking spawn...");
-        spawnBoulder();
-        spawnPanther();
+    if (p_e->getType() == df::KEYBOARD_EVENT) {
+        const df::EventKeyboard* p_keyboard_event = dynamic_cast<const df::EventKeyboard*>(p_e);
+
+        if (p_keyboard_event->getKeyboardAction() == df::KEY_PRESSED) {
+            switch (p_keyboard_event->getKey()) {
+            case df::Keyboard::P:
+                start();
+                break;
+            case df::Keyboard::Q:
+                GM.shutDown();
+                break;
+            default:
+                break;
+            }
+        }
         return 1;
     }
-    LM.writeLog("GameStart: Step event NOT received.");
     return 0;
+}
+
+void ss::GameStart::checkGameOver() {
+    df::ObjectList all_objects = WM.getAllObjects();
+    df::ObjectListIterator it(&all_objects);
+
+    Runner* p_runner = nullptr;
+
+    // Find the Runner object
+    while (!it.isDone()) {
+        df::Object* p_o = it.currentObject();
+        if (p_o->getType() == "Runner") {
+            p_runner = dynamic_cast<Runner*>(p_o);
+            break;
+        }
+        it.next();
+    }
+
+    if (!p_runner) {
+        return; // No player found, skip checking
+    }
+
+    // Check for collisions
+    df::ObjectList collisions = WM.getCollisions(p_runner, p_runner->getPosition());
+    df::ObjectListIterator col_it(&collisions);
+
+    while (!col_it.isDone()) {
+        df::Object* p_o = col_it.currentObject();
+
+        if (p_o->getType() == "Boulder" || p_o->getType() == "Panther") {
+            LM.writeLog("GameStart: Collision detected! Triggering GameOver.");
+
+            // Spawn GameOver screen
+            new GameOver();
+
+            // Mark player for deletion
+            WM.markForDelete(p_runner);
+            return;
+        }
+        col_it.next();
+    }
 }
 
 void ss::GameStart::spawnBoulder() {

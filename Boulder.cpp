@@ -18,7 +18,7 @@ Boulder::Boulder() {
     setType("Rock");
 
     // Set speed in horizontal direction
-    setVelocity(df::Vector(-0.25, 0)); // move left every 4 steps
+    setVelocity(df::Vector(-0.5, 0)); // move left every 4 steps
 
     // Move Obstacle to start location
     moveToStart();
