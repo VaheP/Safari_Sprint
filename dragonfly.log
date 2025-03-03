@@ -1,8 +1,8 @@
-18:47:37    0 ****************************************************
-18:47:37    0 ** Dragonfly version 4.21 **
-18:47:37    0 ** Game engine started **
-18:47:37    0 ****************************************************
-18:47:37    0 Pause::Pause(): Pause enabled.  Press any other key to resume.
-18:47:37    1 GameManager::run(): Can't keep up! frame_time 33 ms, split 40 ms
-18:47:40   71 ****************************************************
-18:47:40   71 ** Game engine stopped **
+20:39:33    0 ****************************************************
+20:39:33    0 ** Dragonfly version 4.21 **
+20:39:33    0 ** Game engine started **
+20:39:33    0 ****************************************************
+20:39:34    0 Pause::Pause(): Pause enabled.  Press any other key to resume.
+20:39:34    1 GameManager::run(): Can't keep up! frame_time 33 ms, split 38 ms
+20:39:45  359 ****************************************************
+20:39:45  359 ** Game engine stopped **

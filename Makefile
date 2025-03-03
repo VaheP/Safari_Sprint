@@ -31,6 +31,9 @@ INCDIR:= $(INCDIR) -I$(LOCALSFML)/include
 ######
 
 GAMESRC= \
+        GroundTile.cpp \
+        GameStart.cpp \
+        Runner.cpp \
 
 
 GAME= game.cpp
