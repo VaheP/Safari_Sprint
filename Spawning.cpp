@@ -1,6 +1,7 @@
 #include "Spawning.h"
 #include "Boulder.h"
 #include "Panther.h"
+#include "Vulture.h"
 #include "LogManager.h"
 #include "EventStep.h"
 #include <stdlib.h>
@@ -10,7 +11,7 @@ Spawning::Spawning() {
     registerInterest(df::STEP_EVENT);
 
     // Initial spawn timer
-    spawn_timer = (rand() % 100) + 50;
+    spawn_timer = (rand() % 100);
 }
 
 int Spawning::eventHandler(const df::Event* p_e) {
@@ -28,13 +29,18 @@ int Spawning::eventHandler(const df::Event* p_e) {
 }
 
 void Spawning::spawnEnemy() {
-    // Equal chance of spawning either obstacle
-    if (rand() % 2 == 0) {
+    int spawnRoll = rand() % 3; // 3 possible outcomes
+
+    if (spawnRoll == 0) {
         LM.writeLog("Spawner: Spawning Boulder.");
-        new Boulder();
+        new Vulture();
+    }
+    else if (spawnRoll == 1) {
+        LM.writeLog("Spawner: Spawning Panther.");
+        new Vulture();
     }
     else {
-        LM.writeLog("Spawner: Spawning Panther.");
-        new Panther();
+        LM.writeLog("Spawner: Spawning Vulture.");
+        new Vulture();
     }
 }
