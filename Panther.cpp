@@ -17,8 +17,7 @@ Panther::Panther() {
     // Set object type
     setType("Panther");
 
-    setVelocity(df::Vector(-1.5, 0)); // move left every 4 steps
-    setAltitude(2);
+    setVelocity(df::Vector(-0.7, 0)); // move left every 4 steps
 
     hitPoints = 2;
 
@@ -83,21 +82,30 @@ void Panther::moveToStart() {
 
 
 void Panther::hit(const df::EventCollision* p_collision_event) {
-    if (p_collision_event->getObject1()->getType() == "Player" ||
-        p_collision_event->getObject2()->getType() == "Player") {
-        WM.markForDelete(p_collision_event->getObject1());
-        WM.markForDelete(p_collision_event->getObject2());
+    df::Object* obj1 = p_collision_event->getObject1();
+    df::Object* obj2 = p_collision_event->getObject2();
+
+    // Handle Player collision (immediate deletion)
+    if (obj1->getType() == "Player" || obj2->getType() == "Player") {
+        WM.markForDelete(obj1);
+        WM.markForDelete(obj2);
     }
-    else if (p_collision_event->getObject1()->getType() == "Bullet" || // For shooting enemy
-        p_collision_event->getObject2()->getType() == "Bullet") {
+    // Handle Bullet collision
+    else if (obj1->getType() == "Bullet" || obj2->getType() == "Bullet") {
         hitPoints--;
+
+        // Determine which object is the bullet
+        df::Object* bullet = (obj1->getType() == "Bullet") ? obj1 : obj2;
+        WM.markForDelete(bullet);  // Always delete the bullet on collision
+
         if (hitPoints <= 0) {
             df::EventView ev("Score", 10, true);
             WM.onEvent(&ev);
-            WM.markForDelete(this);
+            WM.markForDelete(this);  // Delete Panther when hit points reach 0
         }
     }
 }
+
 
 int Panther::eventHandler(const df::Event* p_e) {
     if (dynamic_cast<const df::EventOut*>(p_e)) {
