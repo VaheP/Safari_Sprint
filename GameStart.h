@@ -15,6 +15,7 @@ namespace ss
         int eventHandler(const df::Event* p_e);
         void checkGameOver();
         void spawnTrees();
+        int draw(void);
 
     public:
         GameStart();
