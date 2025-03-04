@@ -1,11 +1,15 @@
 SAFARI SPRINT
 Justin Smith & Vahe Petrosyan
-
+jmsmith2@wpi.edu
+vpetrosyan@wpi.edu
+Developed on both Windows and Mac
 https://github.com/VaheP/Safari_Sprint
 
 Developed using Professor Claypool's Dragonfly engine.
 All assets used are with the Creative Commons license and are credited in the Readme
 markdown file.
+
+Used a Makefile to compile all code for our game and confirmed that it properly compiled.
 
 
 Safari Sprint is an auto-runner game where you must avoid obstacles and deadly animals
