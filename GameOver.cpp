@@ -15,14 +15,14 @@ GameOver::GameOver() {
         time_to_live = 120;
     }
 
-    // Center on screen
+    // Center screen
     setLocation(df::CENTER_CENTER);
 
     registerInterest(df::STEP_EVENT);
 }
 
 GameOver::~GameOver() {
-    // Delete all objects to clean up world
+    // Delete all objects on game over
     df::ObjectList object_list = WM.getAllObjects(true);
     df::ObjectListIterator it(&object_list);
 
@@ -48,7 +48,7 @@ void GameOver::step() {
     }
 }
 
-// Draw Game Over sprite
+// Draw game over sprite
 int GameOver::draw() {
     return df::Object::draw();
 }

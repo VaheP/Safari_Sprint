@@ -17,8 +17,7 @@ Boulder::Boulder() {
     // Set object type
     setType("Rock");
 
-    // Set speed in horizontal direction
-    setVelocity(df::Vector(-0.5, 0)); // move left every 4 steps
+    setVelocity(df::Vector(-0.7, 0)); // move left every 4 steps
 
     // Move Obstacle to start location
     moveToStart();
@@ -67,11 +66,9 @@ void Boulder::moveToStart() {
     // Get the Panther's height
     float panther_height = getBox().getVertical();
 
-    // Set position with bottom of sprite aligned to the ground
-    temp_pos.setX(highest_x + 5); // A little further ahead
-    temp_pos.setY(ground_y - (panther_height / 2)); // Adjust so bottom aligns with ground
+    temp_pos.setX(highest_x + 5);
+    temp_pos.setY(ground_y - (panther_height / 2));
 
-    // Ensure no collisions at spawn point
     df::ObjectList collision_list = WM.getCollisions(this, temp_pos);
     while (!collision_list.isEmpty()) {
         temp_pos.setX(temp_pos.getX() + 1);

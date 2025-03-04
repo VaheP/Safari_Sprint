@@ -17,8 +17,7 @@ Panther::Panther() {
     // Set object type
     setType("Panther");
 
-    // Set speed in horizontal direction
-    setVelocity(df::Vector(-0.55, 0)); // move left every 4 steps
+    setVelocity(df::Vector(-0.7, 0)); // move left every 4 steps
 
     hitPoints = 2;
 
@@ -40,7 +39,7 @@ void Panther::out() {
     df::EventView ev("Score", 5, true);
     WM.onEvent(&ev);
 
-    // Mark for deletion
+    // Delete
     WM.markForDelete(this);
 }
 
@@ -48,7 +47,7 @@ void Panther::moveToStart() {
     df::Vector temp_pos;
     int world_horiz = (int)WM.getBoundary().getHorizontal();
 
-    // Find the rightmost ground tile
+    // Find rightmost ground tile
     df::ObjectList ground_tiles = WM.getAllObjects();
     df::ObjectListIterator li(&ground_tiles);
     float highest_x = 0;
@@ -66,14 +65,12 @@ void Panther::moveToStart() {
         li.next();
     }
 
-    // Get the Panther's height
+    // Get Panther's height
     float panther_height = getBox().getVertical();
 
     // Set position with bottom of sprite aligned to the ground
-    temp_pos.setX(highest_x + 5); // A little further ahead
-    temp_pos.setY(ground_y - (panther_height / 2)); // Adjust so bottom aligns with ground
-
-    // Ensure no collisions at spawn point
+    temp_pos.setX(highest_x + 5);
+    temp_pos.setY(ground_y - (panther_height / 2));
     df::ObjectList collision_list = WM.getCollisions(this, temp_pos);
     while (!collision_list.isEmpty()) {
         temp_pos.setX(temp_pos.getX() + 1);

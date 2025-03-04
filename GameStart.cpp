@@ -12,7 +12,7 @@
 #include <stdlib.h>	
 
 ss::GameStart::GameStart() {
-    setType("GameStart");
+    setType("StartGame");
     setSprite("game_start");
     setLocation(df::CENTER_CENTER);
     registerInterest(df::KEYBOARD_EVENT);
@@ -75,7 +75,7 @@ void ss::GameStart::checkGameOver() {
 
     Runner* p_runner = nullptr;
 
-    // Find the Runner object
+    // Find Runner object
     while (!it.isDone()) {
         df::Object* p_o = it.currentObject();
         if (p_o->getType() == "Runner") {
@@ -86,7 +86,7 @@ void ss::GameStart::checkGameOver() {
     }
 
     if (!p_runner) {
-        return; // No player found, skip checking
+        return;
     }
 
     // Check for collisions
@@ -99,10 +99,8 @@ void ss::GameStart::checkGameOver() {
         if (p_o->getType() == "Boulder" || p_o->getType() == "Panther") {
             LM.writeLog("GameStart: Collision detected! Triggering GameOver.");
 
-            // Spawn GameOver screen
+            // Spawn GameOver on death
             new GameOver();
-
-            // Mark player for deletion
             WM.markForDelete(p_runner);
             return;
         }

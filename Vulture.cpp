@@ -16,8 +16,7 @@ Vulture::Vulture() {
     // Set object type
     setType("Vulture");
 
-    // Start moving left at a fixed height
-    setVelocity(df::Vector(-0.8, 0));  // Moves left only (no downward movement)
+    setVelocity(df::Vector(-0.8, 0));  // Move a bit faster than other objects
 
     hitPoints = 1;
     moveToStart();
@@ -34,9 +33,8 @@ void Vulture::moveToStart() {
     int world_horiz = WM.getBoundary().getHorizontal();
     int world_vert = WM.getBoundary().getVertical();
 
-    // Spawns just above ground level
     temp_pos.setX(world_horiz + 5);
-    temp_pos.setY(world_vert * 0.7); // Around 75% of the screen height
+    temp_pos.setY(world_vert * 0.7); // Spawn at roughly eye-level of player
 
     // Ensure no collisions at spawn point
     df::ObjectList collision_list = WM.getCollisions(this, temp_pos);
@@ -58,25 +56,26 @@ void Vulture::out() {
 void Vulture::hit(const df::EventCollision* p_collision_event) {
     df::Object* obj1 = p_collision_event->getObject1();
     df::Object* obj2 = p_collision_event->getObject2();
-
     df::Object* other = (obj1 == this) ? obj2 : obj1;
 
     // Handle collision with player
-    if (other->getType() == "Runner") {
-        WM.markForDelete(other); // Delete the player
-        WM.markForDelete(this);  // Delete the vulture
+    if (other->getType() == "Player") {
+        LM.writeLog("Vulture hit Runner. Marking both for deletion.");
+        WM.markForDelete(other);
+        WM.markForDelete(this);
     }
-    // Handle collision with bullets
     else if (other->getType() == "Bullet") {
         hitPoints--;
         if (hitPoints <= 0) {
+            LM.writeLog("Vulture destroyed. Marking for deletion.");
             df::EventView ev("Score", 10, true);
             WM.onEvent(&ev);
             WM.markForDelete(this);
         }
-        WM.markForDelete(other); // Delete the bullet upon impact
+        WM.markForDelete(other);
     }
 }
+
 
 int Vulture::eventHandler(const df::Event* p_e) {
     if (dynamic_cast<const df::EventOut*>(p_e)) {
