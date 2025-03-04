@@ -3,7 +3,12 @@ Justin Smith & Vahe Petrosyan
 jmsmith2@wpi.edu
 vpetrosyan@wpi.edu
 Developed on both Windows and Mac
+
+Github repository:
 https://github.com/VaheP/Safari_Sprint
+
+Video link:
+https://youtu.be/DD63X15NK7s
 
 Developed using Professor Claypool's Dragonfly engine.
 All assets used are with the Creative Commons license and are credited in the Readme
