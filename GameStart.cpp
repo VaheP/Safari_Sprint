@@ -9,6 +9,7 @@
 #include "Spawning.h"
 #include "GameOver.h"
 #include "GameManager.h"
+#include "Tree.h"
 #include <stdlib.h>	
 
 ss::GameStart::GameStart() {
@@ -24,6 +25,7 @@ void ss::GameStart::start() {
 
     // Create game world objects
     createGroundTiles();
+    spawnTrees();
     p_points = new Points();
     new Runner(df::Vector(10, 19.5));
     new Spawning();
@@ -119,5 +121,11 @@ void ss::GameStart::spawnPanther() {
     if (rand() % 200 < 2) {
         LM.writeLog("GameStart: Spawning Panther.");
         new Panther();
+    }
+}
+
+void ss::GameStart::spawnTrees() {
+    for (int i = 0; i < 5; ++i) {
+        new Tree();
     }
 }

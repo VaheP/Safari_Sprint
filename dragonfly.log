@@ -1,8 +1,20 @@
-20:39:33    0 ****************************************************
-20:39:33    0 ** Dragonfly version 4.21 **
-20:39:33    0 ** Game engine started **
-20:39:33    0 ****************************************************
-20:39:34    0 Pause::Pause(): Pause enabled.  Press any other key to resume.
-20:39:34    1 GameManager::run(): Can't keep up! frame_time 33 ms, split 38 ms
-20:39:45  359 ****************************************************
-20:39:45  359 ** Game engine stopped **
+23:03:09    0 ****************************************************
+23:03:09    0 ** Dragonfly version 4.21 **
+23:03:09    0 ** Game engine started **
+23:03:09    0 ****************************************************
+23:03:09    0 Pause::Pause(): Pause enabled.  Press any other key to resume.
+23:03:09    1 GameManager::run(): Can't keep up! frame_time 33 ms, split 34 ms
+23:03:12   95 Spawner: Spawning Vulture.
+23:03:14  155 RM::getSound(): Warning! Sound 'fire' not found.
+23:03:14  165 Vulture destroyed. Marking for deletion.
+23:03:14  165 Vulture destroyed. Marking for deletion.
+23:03:14  167 Spawner: Spawning Vulture.
+23:03:15  197 RM::getSound(): Warning! Sound 'fire' not found.
+23:03:16  213 RM::getSound(): Warning! Sound 'fire' not found.
+23:03:16  220 Vulture destroyed. Marking for deletion.
+23:03:17  248 RM::getSound(): Warning! Sound 'fire' not found.
+23:03:18  268 Spawner: Spawning Vulture.
+23:03:19  293 Vulture destroyed. Marking for deletion.
+23:03:19  307 SceneGraph::removeObject(): Error removing Object (id 29)! Pointer is 0x11f80fa00.
+23:03:19  307 ****************************************************
+23:03:19  307 ** Game engine stopped **

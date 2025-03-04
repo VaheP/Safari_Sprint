@@ -7,7 +7,7 @@
 ss::GroundTile::GroundTile() {
     setType("GroundTile");
     setSolidness(df::Solidness::SOFT);
-    setAltitude(0);
+    setAltitude(1);
     registerInterest(df::STEP_EVENT);
     setSprite("ground_tile");
 }

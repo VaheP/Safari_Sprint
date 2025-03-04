@@ -14,6 +14,7 @@ namespace ss
         Points* p_points;
         int eventHandler(const df::Event* p_e);
         void checkGameOver();
+        void spawnTrees();
 
     public:
         GameStart();

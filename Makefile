@@ -34,6 +34,16 @@ GAMESRC= \
         GroundTile.cpp \
         GameStart.cpp \
         Runner.cpp \
+        Points.cpp \
+        Boulder.cpp \
+        Panther.cpp \
+        GameOver.cpp \
+        Spawning.cpp \
+        Vulture.cpp \
+        Reticle.cpp \
+        Bullet.cpp \
+        Tree.cpp \
+
 
 
 GAME= game.cpp

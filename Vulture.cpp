@@ -15,6 +15,7 @@ Vulture::Vulture() {
 
     // Set object type
     setType("Vulture");
+    setAltitude(2);
 
     setVelocity(df::Vector(-0.8, 0));  // Move a bit faster than other objects
 

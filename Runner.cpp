@@ -5,6 +5,7 @@
 #include "ResourceManager.h"
 #include "InputManager.h"
 #include "GameOver.h"
+#include "Bullet.h"
 
 ss::Runner::Runner() {
     float world_height = WM.getView().getVertical();
@@ -16,12 +17,17 @@ ss::Runner::Runner(df::Vector position) {
     setType("Player");
     setSprite("runner");
     m_jump_sound = RM.getSound("jump");
+    setAltitude(2);
+    fire_slowdown = 10;
+    fire_countdown = fire_slowdown;
     m_velocity = df::Vector(0, 0);
     m_grounded = true;
     registerInterest(df::KEYBOARD_EVENT);
     registerInterest(df::STEP_EVENT);
+    registerInterest(df::MSE_EVENT);
     ground_y = position.getY();
     setPosition(position);
+    m_reticle = new Reticle();
 }
 
 ss::Runner::~Runner() {
@@ -34,6 +40,12 @@ int ss::Runner::eventHandler(const df::Event* p_e) {
         const df::EventKeyboard* p_keyboard_event = dynamic_cast<const df::EventKeyboard*>(p_e);
 
         kbd(p_keyboard_event);
+        return 1;
+    }
+    if (p_e->getType() == df::MSE_EVENT)
+    {
+        const df::EventMouse* p_mouse_event = dynamic_cast<const df::EventMouse*>(p_e);
+        mouse(p_mouse_event);
         return 1;
     }
     if (p_e->getType() == df::STEP_EVENT) {
@@ -62,6 +74,33 @@ void ss::Runner::kbd(const df::EventKeyboard* p_keyboard_event)
     }
 }
 
+void ss::Runner::mouse(const df::EventMouse *p_mouse_event)
+{
+    if ((p_mouse_event->getMouseAction() == df::CLICKED) && (p_mouse_event->getMouseButton() == df::Mouse::LEFT))
+        fire(p_mouse_event->getMousePosition());
+}
+
+void ss::Runner::fire(df::Vector target)
+{
+    if (fire_countdown > 0)
+        return;
+    fire_countdown = fire_slowdown;
+
+    df::Vector v = target - getPosition();
+
+    v.normalize();
+    v.scale(1);
+
+    ss::Bullet *p = new Bullet(getPosition());
+    p->setVelocity(v);
+
+    df::Sound *p_sound = RM.getSound("fire");
+    if (p_sound)
+    {
+        p_sound->play();
+    }
+}
+
 void ss::Runner::duck(bool ducking) {
     if (m_grounded) {
         m_ducking = ducking;
@@ -77,7 +116,7 @@ void ss::Runner::duck(bool ducking) {
 }
 
 void ss::Runner::step() {
-    const float GRAVITY = 0.5f;
+    const float GRAVITY = 0.13f;
 
     if (!m_grounded) {
         m_velocity.setY(m_velocity.getY() + GRAVITY);
@@ -94,13 +133,16 @@ void ss::Runner::step() {
         m_grounded = true;
     }
 
+    fire_countdown--;
+    if (fire_countdown < 0)
+        fire_countdown = 0;
 
 }
 
 void ss::Runner::jump() {
     if (m_grounded && !m_ducking) {
         m_jump_sound->play();
-        m_velocity.setY(-3.0f);
+        m_velocity.setY(-1.5f);
         m_grounded = false;
     }
 }

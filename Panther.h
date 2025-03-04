@@ -20,4 +20,4 @@ public:
     int eventHandler(const df::Event* p_e) override;
 };
 
-#endif#pragma once
+#endif

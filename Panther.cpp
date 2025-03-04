@@ -17,7 +17,8 @@ Panther::Panther() {
     // Set object type
     setType("Panther");
 
-    setVelocity(df::Vector(-0.7, 0)); // move left every 4 steps
+    setVelocity(df::Vector(-1.5, 0)); // move left every 4 steps
+    setAltitude(2);
 
     hitPoints = 2;
 
