@@ -33,11 +33,11 @@ void Spawning::spawnEnemy() {
 
     if (spawnRoll == 0) {
         LM.writeLog("Spawner: Spawning Boulder.");
-        new Vulture();
+        new Boulder();
     }
     else if (spawnRoll == 1) {
         LM.writeLog("Spawner: Spawning Panther.");
-        new Vulture();
+        new Panther();
     }
     else {
         LM.writeLog("Spawner: Spawning Vulture.");
