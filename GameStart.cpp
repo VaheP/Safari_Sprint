@@ -21,7 +21,6 @@ ss::GameStart::GameStart() {
 }
 
 void ss::GameStart::start() {
-    setActive(false);
 
     // Create game world objects
     createGroundTiles();
@@ -32,6 +31,8 @@ void ss::GameStart::start() {
 
     // Register for game step events
     registerInterest(df::STEP_EVENT);
+    setActive(false);
+
 }
 
 void ss::GameStart::createGroundTiles() {
@@ -128,4 +129,10 @@ void ss::GameStart::spawnTrees() {
     for (int i = 0; i < 5; ++i) {
         new Tree();
     }
+}
+
+
+int ss::GameStart::draw()
+{
+    return df::Object::draw();
 }
