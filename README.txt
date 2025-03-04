@@ -1,5 +1,6 @@
 SAFARI SPRINT
 Justin Smith & Vahe Petrosyan
+https://github.com/VaheP/Safari_Sprint
 Developed using Professor Claypool's Dragonfly engine.
 All assets used are with the Creative Commons license and are credited in the Readme
 markdown file.
