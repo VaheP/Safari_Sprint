@@ -9,35 +9,28 @@
 #include "WorldManager.h"
 #include "Points.h"
 
-Boulder::Boulder() {
-
-    // Setup for sprite
+Boulder::Boulder(Points* points) {
     setSprite("rock");
-
-    // Set object type
-    setType("Rock");
-
-    setVelocity(df::Vector(-1.5, 0)); // move left every 4 steps
-
-    // Move Obstacle to start location
+    setType("Boulder");
+    setVelocity(df::Vector(-0.7, 0));
+    p_points = points;
     moveToStart();
 }
 
 Boulder::~Boulder() {
-    df::EventView ev(POINTS_STRING, 5, true);
-    WM.onEvent(&ev);
+    if (p_points) {
+        //p_points->addScore(5);  // 5 points when Boulder is deleted
+    }
 }
 
 void Boulder::out() {
-    // Check if object has moved off the left edge
     if (getPosition().getX() >= 0)
         return;
 
-    // Add 5 points on despawn
-    df::EventView ev("Score", 5, true);
-    WM.onEvent(&ev);
+    if (p_points) {
+        p_points->addScore(5);  // 5 points for dodging
+    }
 
-    // Mark for deletion
     WM.markForDelete(this);
 }
 
@@ -63,7 +56,7 @@ void Boulder::moveToStart() {
         li.next();
     }
 
-    // Get the Panther's height
+    // Get height
     float panther_height = getBox().getVertical();
 
     temp_pos.setX(highest_x + 5);
@@ -81,7 +74,7 @@ void Boulder::moveToStart() {
 void Boulder::hit(const df::EventCollision* p_collision_event) {
     if (p_collision_event->getObject1()->getType() == "Player" ||
         p_collision_event->getObject2()->getType() == "Player") {
-        // Kill the player on contact
+        // Kill player on contact
         WM.markForDelete(p_collision_event->getObject1());
         WM.markForDelete(p_collision_event->getObject2());
     }

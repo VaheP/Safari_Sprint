@@ -5,6 +5,7 @@
 #include "EventCollision.h"
 #include "EventOut.h"
 #include "EventView.h"
+#include "Points.h"
 
 class Vulture : public df::Object {
 private:
@@ -16,11 +17,12 @@ private:
     void moveToStart();
     void hit(const df::EventCollision* p_collision_event);
     void out();
+    Points* p_points;
 
 public:
-    Vulture();
+    Vulture(Points* points);
     ~Vulture();
     int eventHandler(const df::Event* p_e) override;
 };
 
-#endif
+#endif#pragma once

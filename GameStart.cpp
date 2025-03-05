@@ -10,6 +10,7 @@
 #include "GameOver.h"
 #include "GameManager.h"
 #include "Tree.h"
+#include "Points.h"
 #include <stdlib.h>	
 
 ss::GameStart::GameStart() {
@@ -17,22 +18,31 @@ ss::GameStart::GameStart() {
     setSprite("game_start");
     setLocation(df::CENTER_CENTER);
     registerInterest(df::KEYBOARD_EVENT);
-    //start();
+    setActive(true);
 }
 
 void ss::GameStart::start() {
+    df::ObjectList all_objects = WM.getAllObjects();
+    df::ObjectListIterator it(&all_objects);
 
-    // Create game world objects
+    while (!it.isDone()) {
+        df::Object* p_o = it.currentObject();
+        if (p_o->getType() != "GameStart") {
+            WM.markForDelete(p_o);
+        }
+        it.next();
+    }
+
+    if (p_points) {
+        WM.markForDelete(p_points);
+        p_points = nullptr;
+    }
+
     createGroundTiles();
-    spawnTrees();
     p_points = new Points();
     new Runner(df::Vector(10, 19.5));
-    new Spawning();
-
-    // Register for game step events
-    registerInterest(df::STEP_EVENT);
-    setActive(false);
-
+    new Spawning(p_points);  // Pass Points to Spawning
+    setActive(true);
 }
 
 void ss::GameStart::createGroundTiles() {
@@ -111,6 +121,30 @@ void ss::GameStart::checkGameOver() {
     }
 }
 
+void ss::GameStart::checkDodgedObstacles() {
+    df::ObjectList all_objects = WM.getAllObjects();
+    df::ObjectListIterator it(&all_objects);
+
+    while (!it.isDone()) {
+        df::Object* p_o = it.currentObject();
+
+        // If the object is an obstacle (Boulder, Panther, Vulture) and has passed the player
+        if (p_o->getType() == "Boulder" || p_o->getType() == "Panther" || p_o->getType() == "Vulture") {
+            if (p_o->getPosition().getX() < 0) {  // Assuming obstacles move left and exit at X < 0
+                LM.writeLog("GameStart: Obstacle dodged. Adding points.");
+
+                if (p_points) {
+                    p_points->addScore(5); // Call `addScore()`
+                }
+
+                WM.markForDelete(p_o); // Delete the obstacle
+            }
+        }
+        it.next();
+    }
+}
+
+/*
 void ss::GameStart::spawnBoulder() {
     if (rand() % 100 < 3) {
         LM.writeLog("GameStart: Spawning Boulder.");
@@ -123,7 +157,7 @@ void ss::GameStart::spawnPanther() {
         LM.writeLog("GameStart: Spawning Panther.");
         new Panther();
     }
-}
+} */
 
 void ss::GameStart::spawnTrees() {
     for (int i = 0; i < 5; ++i) {

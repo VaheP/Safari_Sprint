@@ -9,37 +9,30 @@
 #include "WorldManager.h"
 #include "Points.h"
 
-Panther::Panther() {
-
-    // Setup for sprite
+Panther::Panther(Points* points) {
     setSprite("panther");
-
-    // Set object type
     setType("Panther");
-
-    setVelocity(df::Vector(-0.7, 0)); // move left every 4 steps
-
+    setVelocity(df::Vector(-0.7, 0));
     hitPoints = 2;
-
-    // Move Obstacle to start location
+    p_points = points;
     moveToStart();
 }
 
+
 Panther::~Panther() {
-    df::EventView ev(POINTS_STRING, 10, true);
-    WM.onEvent(&ev);
+    if (p_points) {
+        p_points->addScore(10);  // 10 points when Panther is deleted
+    }
 }
 
 void Panther::out() {
-    // Check if object has moved off the left edge
     if (getPosition().getX() >= 0)
         return;
 
-    // Add 5 points on despawn
-    df::EventView ev("Score", 5, true);
-    WM.onEvent(&ev);
+    if (p_points) {
+        p_points->addScore(5);  // 5 points for dodging
+    }
 
-    // Delete
     WM.markForDelete(this);
 }
 
@@ -65,7 +58,7 @@ void Panther::moveToStart() {
         li.next();
     }
 
-    // Get Panther's height
+    // Get height
     float panther_height = getBox().getVertical();
 
     // Set position with bottom of sprite aligned to the ground
@@ -85,23 +78,21 @@ void Panther::hit(const df::EventCollision* p_collision_event) {
     df::Object* obj1 = p_collision_event->getObject1();
     df::Object* obj2 = p_collision_event->getObject2();
 
-    // Handle Player collision (immediate deletion)
     if (obj1->getType() == "Player" || obj2->getType() == "Player") {
         WM.markForDelete(obj1);
         WM.markForDelete(obj2);
     }
-    // Handle Bullet collision
     else if (obj1->getType() == "Bullet" || obj2->getType() == "Bullet") {
         hitPoints--;
 
-        // Determine which object is the bullet
         df::Object* bullet = (obj1->getType() == "Bullet") ? obj1 : obj2;
-        WM.markForDelete(bullet);  // Always delete the bullet on collision
+        WM.markForDelete(bullet);
 
         if (hitPoints <= 0) {
-            df::EventView ev("Score", 10, true);
-            WM.onEvent(&ev);
-            WM.markForDelete(this);  // Delete Panther when hit points reach 0
+            if (p_points) {
+                // p_points->addScore(10);  // 10 points when Panther is destroyed
+            }
+            WM.markForDelete(this);
         }
     }
 }

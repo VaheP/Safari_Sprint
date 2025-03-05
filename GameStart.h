@@ -9,13 +9,14 @@ namespace ss
     private:
         void start();
         void createGroundTiles();
-        void spawnBoulder();
-        void spawnPanther();
+        //void spawnBoulder();
+        //void spawnPanther();
         Points* p_points;
         int eventHandler(const df::Event* p_e);
         void checkGameOver();
         void spawnTrees();
         int draw(void);
+        void checkDodgedObstacles();
 
     public:
         GameStart();

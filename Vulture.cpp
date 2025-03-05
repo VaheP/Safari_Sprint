@@ -9,23 +9,19 @@
 #include "WorldManager.h"
 #include "Points.h"
 
-Vulture::Vulture() {
-    // Setup for sprite
+Vulture::Vulture(Points* points) {
     setSprite("vulture");
-
-    // Set object type
     setType("Vulture");
-    setAltitude(2);
-
-    setVelocity(df::Vector(-0.8, 0));  // Move a bit faster than other objects
-
+    setVelocity(df::Vector(-0.75, 0)); // Move a bit faster
     hitPoints = 1;
+    p_points = points;
     moveToStart();
 }
 
 Vulture::~Vulture() {
-    df::EventView ev(POINTS_STRING, 10, true);
-    WM.onEvent(&ev);
+    if (p_points) {
+        p_points->addScore(10);  // 10 points when Vulture is deleted
+    }
 }
 
 void Vulture::moveToStart() {
@@ -48,32 +44,36 @@ void Vulture::moveToStart() {
 }
 
 void Vulture::out() {
-    // If it moves off the left side, delete it
-    if (getPosition().getX() < 0) {
-        WM.markForDelete(this);
+    if (getPosition().getX() >= 0)
+        return;
+
+    if (p_points) {
+        //p_points->addScore(5);  // 5 points for dodging
     }
+
+    WM.markForDelete(this);
 }
 
 void Vulture::hit(const df::EventCollision* p_collision_event) {
     df::Object* obj1 = p_collision_event->getObject1();
     df::Object* obj2 = p_collision_event->getObject2();
-    df::Object* other = (obj1 == this) ? obj2 : obj1;
 
-    // Handle collision with player
-    if (other->getType() == "Player") {
-        LM.writeLog("Vulture hit Runner. Marking both for deletion.");
-        WM.markForDelete(other);
-        WM.markForDelete(this);
+    if (obj1->getType() == "Player" || obj2->getType() == "Player") {
+        WM.markForDelete(obj1);
+        WM.markForDelete(obj2);
     }
-    else if (other->getType() == "Bullet") {
+    else if (obj1->getType() == "Bullet" || obj2->getType() == "Bullet") {
         hitPoints--;
+
+        df::Object* bullet = (obj1->getType() == "Bullet") ? obj1 : obj2;
+        WM.markForDelete(bullet);
+
         if (hitPoints <= 0) {
-            LM.writeLog("Vulture destroyed. Marking for deletion.");
-            df::EventView ev("Score", 10, true);
-            WM.onEvent(&ev);
+            if (p_points) {
+                // p_points->addScore(10);  // 10 points when Panther is destroyed
+            }
             WM.markForDelete(this);
         }
-        WM.markForDelete(other);
     }
 }
 
