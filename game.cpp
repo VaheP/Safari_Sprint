@@ -14,6 +14,7 @@ void loadResources(void)
     RM.loadSprite("sprites/world/bullet-spr.txt", "bullet");
     RM.loadSprite("sprites/world/tree-spr1.txt", "tree1");
     RM.loadSprite("sprites/world/tree-spr2.txt", "tree2");
+    RM.loadSprite("sprites/world/sun-spr.txt", "sun");
     RM.loadSprite("sprites/characters/panther-spr.txt", "panther");
     RM.loadSprite("sprites/characters/vulture-spr.txt", "vulture");
     RM.loadSprite("sprites/world/gamestart-spr.txt", "game_start");

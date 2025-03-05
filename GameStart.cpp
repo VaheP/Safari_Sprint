@@ -12,6 +12,7 @@
 #include "Tree.h"
 #include "Points.h"
 #include <stdlib.h>	
+#include "Sun.h"
 
 ss::GameStart::GameStart() {
     setType("StartGame");
@@ -38,7 +39,10 @@ void ss::GameStart::start() {
         p_points = nullptr;
     }
 
+    Sun *s = new Sun();
+    s->setPosition(df::Vector(4, 2));
     createGroundTiles();
+    spawnTrees();
     p_points = new Points();
     new Runner(df::Vector(10, 19.5));
     new Spawning(p_points);  // Pass Points to Spawning

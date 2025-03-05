@@ -1,47 +1,7 @@
-23:39:11    0 ****************************************************
-23:39:11    0 ** Dragonfly version 4.21 **
-23:39:11    0 ** Game engine started **
-23:39:11    0 ****************************************************
-23:39:11    0 Pause::Pause(): Pause enabled.  Press any other key to resume.
-23:39:11    1 GameManager::run(): Can't keep up! frame_time 33 ms, split 48 ms
-23:39:19  217 Spawner: Spawning Vulture.
-23:39:23  340 Spawner: Spawning Vulture.
-23:39:26  454 Spawner: Spawning Boulder.
-23:39:29  527 Spawner: Spawning Panther.
-23:39:30  555 RM::getSound(): Warning! Sound 'fire' not found.
-23:39:32  612 Spawner: Spawning Vulture.
-23:39:33  653 RM::getSound(): Warning! Sound 'fire' not found.
-23:39:34  671 Vulture destroyed. Marking for deletion.
-23:39:34  693 Spawner: Spawning Panther.
-23:39:37  763 Spawner: Spawning Panther.
-23:39:38  793 RM::getSound(): Warning! Sound 'fire' not found.
-23:39:41  906 Spawner: Spawning Boulder.
-23:39:45 1017 Spawner: Spawning Vulture.
-23:39:46 1049 RM::getSound(): Warning! Sound 'fire' not found.
-23:39:47 1071 Vulture destroyed. Marking for deletion.
-23:39:49 1129 Spawner: Spawning Vulture.
-23:39:50 1174 RM::getSound(): Warning! Sound 'fire' not found.
-23:39:51 1190 Vulture destroyed. Marking for deletion.
-23:39:51 1193 Spawner: Spawning Panther.
-23:39:53 1264 Spawner: Spawning Panther.
-23:39:54 1293 RM::getSound(): Warning! Sound 'fire' not found.
-23:39:56 1346 Spawner: Spawning Panther.
-23:39:59 1430 Spawner: Spawning Panther.
-23:39:59 1457 RM::getSound(): Warning! Sound 'fire' not found.
-23:40:01 1499 Spawner: Spawning Boulder.
-23:40:04 1600 Spawner: Spawning Vulture.
-23:40:08 1715 Spawner: Spawning Panther.
-23:40:11 1797 Spawner: Spawning Vulture.
-23:40:12 1837 RM::getSound(): Warning! Sound 'fire' not found.
-23:40:13 1856 Vulture destroyed. Marking for deletion.
-23:40:13 1856 Vulture destroyed. Marking for deletion.
-23:40:13 1857 Spawner: Spawning Vulture.
-23:40:14 1905 RM::getSound(): Warning! Sound 'fire' not found.
-23:40:15 1920 Vulture destroyed. Marking for deletion.
-23:40:15 1923 Spawner: Spawning Panther.
-23:40:17 1974 Spawner: Spawning Vulture.
-23:40:19 2059 Vulture hit Runner. Marking both for deletion.
-23:40:20 2095 Spawner: Spawning Vulture.
-23:40:23 2160 Spawner: Spawning Panther.
-23:40:25 2239 ****************************************************
-23:40:25 2239 ** Game engine stopped **
+16:48:28    0 ****************************************************
+16:48:28    0 ** Dragonfly version 4.21 **
+16:48:28    0 ** Game engine started **
+16:48:28    0 ****************************************************
+16:48:28    0 Pause::Pause(): Pause enabled.  Press any other key to resume.
+16:48:28    1 GameManager::run(): Can't keep up! frame_time 33 ms, split 36 ms
+16:48:54  773 SceneGraph::removeObject(): Error removing Object (id 19)! Pointer is 0x13794d800.

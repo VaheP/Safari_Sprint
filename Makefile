@@ -43,6 +43,7 @@ GAMESRC= \
         Reticle.cpp \
         Bullet.cpp \
         Tree.cpp \
+        Sun.cpp \
 
 
 
