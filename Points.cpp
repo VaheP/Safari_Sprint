@@ -36,7 +36,7 @@ int Points::eventHandler(const df::Event* p_e) {
 
 // Update the points string to reflect the new score
 void Points::updatePoints() {
-    setViewString("Score: " + std::to_string(score)); // Use actual `score`
+    setViewString("Score: "); // Use actual `score`
 }
 
 void Points::addScore(int amount) {
