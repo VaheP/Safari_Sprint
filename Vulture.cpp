@@ -12,7 +12,7 @@
 Vulture::Vulture(Points* points) {
     setSprite("vulture");
     setType("Vulture");
-    setVelocity(df::Vector(-0.75, 0)); // Move a bit faster
+    setVelocity(df::Vector(-0.8, 0)); // Move a bit faster
     hitPoints = 1;
     p_points = points;
     moveToStart();

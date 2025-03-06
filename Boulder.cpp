@@ -12,7 +12,7 @@
 Boulder::Boulder(Points* points) {
     setSprite("rock");
     setType("Boulder");
-    setVelocity(df::Vector(-0.7, 0));
+    setVelocity(df::Vector(-0.8, 0));
     p_points = points;
     moveToStart();
 }
