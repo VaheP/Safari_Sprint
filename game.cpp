@@ -19,7 +19,11 @@ void loadResources(void)
     RM.loadSprite("sprites/characters/vulture-spr.txt", "vulture");
     RM.loadSprite("sprites/world/gamestart-spr.txt", "game_start");
     RM.loadSprite("sprites/world/gameover-spr.txt", "game_over");                                                                     
-    RM.loadSound("sounds/sfx/step_sand_02.wav", "jump");
+    RM.loadSound("sounds/sfx/jump.wav", "jump");
+    RM.loadSound("sounds/sfx/kill_enemy.wav", "kill");
+    RM.loadSound("sounds/sfx/player_fail.wav", "fail");
+    RM.loadSound("sounds/sfx/shoot.wav", "shoot");
+    RM.loadMusic("sounds/background/background_sound.wav", "music");
 }
 
 void populateWorld(void)

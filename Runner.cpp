@@ -16,7 +16,7 @@ ss::Runner::Runner() {
 ss::Runner::Runner(df::Vector position) {
     setType("Player");
     setSprite("runner");
-    //m_jump_sound = RM.getSound("jump");
+    m_jump_sound = RM.getSound("jump");
     setAltitude(2);
     fire_slowdown = 40;
     fire_countdown = fire_slowdown;
@@ -31,6 +31,11 @@ ss::Runner::Runner(df::Vector position) {
 }
 
 ss::Runner::~Runner() {
+    df::Sound* p_sound = RM.getSound("fail");
+    if (p_sound)
+    {
+        p_sound->play();
+    }
     new GameOver();
 }
 
@@ -98,11 +103,11 @@ void ss::Runner::fire(df::Vector target)
     ss::Bullet* p = new Bullet(getPosition());
     p->setVelocity(v);
 
-    //df::Sound* p_sound = RM.getSound("fire");
-   /* if (p_sound)
+    df::Sound* p_sound = RM.getSound("shoot");
+    if (p_sound)
     {
         p_sound->play();
-    } */
+    }
 }
 
 void ss::Runner::duck(bool ducking) {
@@ -145,7 +150,7 @@ void ss::Runner::step() {
 
 void ss::Runner::jump() {
     if (m_grounded && !m_ducking) {
-        //m_jump_sound->play();
+        m_jump_sound->play();
         m_velocity.setY(-1.5f);
         m_grounded = false;
     }

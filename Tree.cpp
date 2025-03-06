@@ -9,15 +9,15 @@ ss::Tree::Tree()
     if (type1)
     {
         setSprite("tree2");
-        y_pos = 10;
+        y_pos = 13;
     }
     else
     {
         setSprite("tree1");
-        y_pos = 13;
+        y_pos = 14;
     }
     setSolidness(df::SPECTRAL);
-    setVelocity(df::Vector((float)-1.0 / (rand() % 10 + 1), 0));
+    setVelocity(df::Vector((float)-1.0 / (rand() % 10 + 2), 0));
     setAltitude(0);
 
     df::Vector p((float)(rand() % (int)WM.getBoundary().getHorizontal()),
@@ -43,5 +43,5 @@ void ss::Tree::out()
                  y_pos);
 
     setPosition(p);
-    setVelocity(df ::Vector(-1.0 / (rand() % 10 + 1), 0));
+    setVelocity(df ::Vector(-1.0 / (rand() % 10 + 2), 0));
 }

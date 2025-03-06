@@ -13,6 +13,8 @@
 #include "Points.h"
 #include <stdlib.h>	
 #include "Sun.h"
+#include "Music.h"
+#include "ResourceManager.h"
 
 ss::GameStart::GameStart() {
     setType("StartGame");
@@ -20,6 +22,12 @@ ss::GameStart::GameStart() {
     setLocation(df::CENTER_CENTER);
     registerInterest(df::KEYBOARD_EVENT);
     setActive(true);
+
+
+    df::Music *p_music = RM.getMusic("music");
+    if (p_music) {
+        p_music->play(true);
+    }
 }
 
 void ss::GameStart::start() {
@@ -41,6 +49,7 @@ void ss::GameStart::start() {
     }
     p_points = new Points();
 
+    spawnTrees();
     // Recreate game objects
     Sun* s = new Sun();
     s->setPosition(df::Vector(4, 2));
@@ -149,8 +158,14 @@ void ss::GameStart::checkDodgedObstacles() {
 }
 
 void ss::GameStart::spawnTrees() {
+
+    int cur_x = 0;
     for (int i = 0; i < 5; ++i) {
-        new Tree();
+        Tree *tree = new Tree();
+
+        // Set tree position
+        tree->setPosition(df::Vector(cur_x, tree->getPosition().getY()));
+        cur_x += 10;
     }
 }
 

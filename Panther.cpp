@@ -21,6 +21,11 @@ Panther::Panther(Points* points) {
 
 
 Panther::~Panther() {
+    df::Sound* p_sound = RM.getSound("kill");
+    if (p_sound)
+    {
+        p_sound->play();
+    }
     if (p_points) {
         p_points->addScore(10);  // 10 points when Panther is deleted
     }
