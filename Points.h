@@ -10,7 +10,6 @@ private:
 public:
 	Points();
 	int eventHandler(const df::Event* p_e) override;
-	void updatePoints();
 	int getScore() const;
 	void addScore(int amount);
 };
