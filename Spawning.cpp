@@ -16,12 +16,12 @@ Spawning::Spawning(Points* points) {
 
 int Spawning::eventHandler(const df::Event* p_e) {
     if (p_e->getType() == df::STEP_EVENT) {
-        if (!p_points) return 0;  // Safety check in case Points is missing
+        if (!p_points) return 0;
         int score = p_points->getScore();
 
-        int max_spawn_rate = 50;
+        int max_spawn_rate = 40;
         int base_spawn_rate = 150;
-        int score_threshold = 50;
+        int score_threshold = 25;
 
         int new_spawn_rate = base_spawn_rate - (score / score_threshold) * 10;
         if (new_spawn_rate < max_spawn_rate) {

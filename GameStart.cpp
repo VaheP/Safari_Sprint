@@ -23,6 +23,7 @@ ss::GameStart::GameStart() {
 }
 
 void ss::GameStart::start() {
+    // Remove all objects except GameStart
     df::ObjectList all_objects = WM.getAllObjects();
     df::ObjectListIterator it(&all_objects);
 
@@ -34,19 +35,18 @@ void ss::GameStart::start() {
         it.next();
     }
 
+    // Recreate Points object
     if (p_points) {
         WM.markForDelete(p_points);
-        p_points = nullptr;
     }
+    p_points = new Points();
 
-    Sun *s = new Sun();
+    // Recreate game objects
+    Sun* s = new Sun();
     s->setPosition(df::Vector(4, 2));
     createGroundTiles();
-    spawnTrees();
-    p_points = new Points();
     new Runner(df::Vector(10, 19.5));
-    new Spawning(p_points);  // Pass Points to Spawning
-    setActive(true);
+    new Spawning(p_points);
 }
 
 void ss::GameStart::createGroundTiles() {
@@ -147,21 +147,6 @@ void ss::GameStart::checkDodgedObstacles() {
         it.next();
     }
 }
-
-/*
-void ss::GameStart::spawnBoulder() {
-    if (rand() % 100 < 3) {
-        LM.writeLog("GameStart: Spawning Boulder.");
-        new Boulder();
-    }
-}
-
-void ss::GameStart::spawnPanther() {
-    if (rand() % 200 < 2) {
-        LM.writeLog("GameStart: Spawning Panther.");
-        new Panther();
-    }
-} */
 
 void ss::GameStart::spawnTrees() {
     for (int i = 0; i < 5; ++i) {

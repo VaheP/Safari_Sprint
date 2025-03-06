@@ -10,13 +10,13 @@
 ss::Runner::Runner() {
     float world_height = WM.getView().getVertical();
     float player_height = getBox().getVertical();
-    Runner(df::Vector(10, world_height - player_height / 2 + 0.5));
+    Runner(df::Vector(10, WM.getView().getVertical() - getBox().getVertical() / 2 + 0.5));
 }
 
 ss::Runner::Runner(df::Vector position) {
     setType("Player");
     setSprite("runner");
-    m_jump_sound = RM.getSound("jump");
+    //m_jump_sound = RM.getSound("jump");
     setAltitude(2);
     fire_slowdown = 10;
     fire_countdown = fire_slowdown;
@@ -69,12 +69,16 @@ void ss::Runner::kbd(const df::EventKeyboard* p_keyboard_event)
         if (p_keyboard_event->getKeyboardAction() == df::KEY_RELEASED)
             duck(false);
         break;
+    case df::Keyboard::Q:        // quit
+        if (p_keyboard_event->getKeyboardAction() == df::KEY_PRESSED)
+            WM.markForDelete(this);
+        break;
     default:
         break;
     }
 }
 
-void ss::Runner::mouse(const df::EventMouse *p_mouse_event)
+void ss::Runner::mouse(const df::EventMouse* p_mouse_event)
 {
     if ((p_mouse_event->getMouseAction() == df::CLICKED) && (p_mouse_event->getMouseButton() == df::Mouse::LEFT))
         fire(p_mouse_event->getMousePosition());
@@ -91,14 +95,14 @@ void ss::Runner::fire(df::Vector target)
     v.normalize();
     v.scale(1);
 
-    ss::Bullet *p = new Bullet(getPosition());
+    ss::Bullet* p = new Bullet(getPosition());
     p->setVelocity(v);
 
-    df::Sound *p_sound = RM.getSound("fire");
-    if (p_sound)
+    //df::Sound* p_sound = RM.getSound("fire");
+   /* if (p_sound)
     {
         p_sound->play();
-    }
+    } */
 }
 
 void ss::Runner::duck(bool ducking) {
