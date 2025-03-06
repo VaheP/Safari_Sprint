@@ -1,14 +1,26 @@
 <HEADER>
-frames 1
+frames 4
 width 9
 height 3
 color red
-slowdown 3
+slowdown 4
 </HEADER>
 <BODY>
   ___/__ 
 >@)_____|
      \   
+end
+  ___|__ 
+>@)_____|
+     |   
+end
+  ___\__ 
+-@)_____|
+     /   
+end
+  ___|__ 
+>@)_____|
+     |   
 end
 </BODY>
 <FOOTER>

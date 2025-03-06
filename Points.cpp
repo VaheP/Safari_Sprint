@@ -5,10 +5,10 @@
 
 Points::Points() {
     setLocation(df::TOP_RIGHT);
-    setViewString("Score: 0");  // Initialize with score 0
+    setViewString("Score: 0");  // Initialize score string
     setColor(df::YELLOW);
-    score = 0;  // Initialize the score value
-    registerInterest(df::STEP_EVENT);  // Register for step events
+    score = 0;  // Initialize internal score
+    registerInterest(df::STEP_EVENT);
 }
 
 int Points::getScore() const {
@@ -34,13 +34,14 @@ int Points::eventHandler(const df::Event* p_e) {
     return 0;
 }
 
-// Update the points string to reflect the new score
+// Update points string
 void Points::updatePoints() {
-    setViewString("Score: "); // Use actual `score`
+    if (this) {
+        setViewString("Score: ");
+    }
 }
 
 void Points::addScore(int amount) {
-    score += amount; // Update internal score
-    //setValue(score); // Update ViewObject's value
+    score += amount; // Update score
     updatePoints();
 }

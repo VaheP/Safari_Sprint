@@ -18,7 +18,7 @@ ss::Runner::Runner(df::Vector position) {
     setSprite("runner");
     //m_jump_sound = RM.getSound("jump");
     setAltitude(2);
-    fire_slowdown = 10;
+    fire_slowdown = 40;
     fire_countdown = fire_slowdown;
     m_velocity = df::Vector(0, 0);
     m_grounded = true;
@@ -69,7 +69,7 @@ void ss::Runner::kbd(const df::EventKeyboard* p_keyboard_event)
         if (p_keyboard_event->getKeyboardAction() == df::KEY_RELEASED)
             duck(false);
         break;
-    case df::Keyboard::Q:        // quit
+    case df::Keyboard::Q:        // quits game during play
         if (p_keyboard_event->getKeyboardAction() == df::KEY_PRESSED)
             WM.markForDelete(this);
         break;
@@ -145,7 +145,7 @@ void ss::Runner::step() {
 
 void ss::Runner::jump() {
     if (m_grounded && !m_ducking) {
-        m_jump_sound->play();
+        //m_jump_sound->play();
         m_velocity.setY(-1.5f);
         m_grounded = false;
     }

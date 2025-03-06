@@ -37,8 +37,6 @@ void Boulder::out() {
 void Boulder::moveToStart() {
     df::Vector temp_pos;
     int world_horiz = (int)WM.getBoundary().getHorizontal();
-
-    // Find the rightmost ground tile
     df::ObjectList ground_tiles = WM.getAllObjects();
     df::ObjectListIterator li(&ground_tiles);
     float highest_x = 0;
@@ -57,10 +55,10 @@ void Boulder::moveToStart() {
     }
 
     // Get height
-    float panther_height = getBox().getVertical();
+    float boulder_height = getBox().getVertical();
 
     temp_pos.setX(highest_x + 5);
-    temp_pos.setY(ground_y - (panther_height / 2));
+    temp_pos.setY(ground_y - (boulder_height / 2));
 
     df::ObjectList collision_list = WM.getCollisions(this, temp_pos);
     while (!collision_list.isEmpty()) {
@@ -77,6 +75,15 @@ void Boulder::hit(const df::EventCollision* p_collision_event) {
         // Kill player on contact
         WM.markForDelete(p_collision_event->getObject1());
         WM.markForDelete(p_collision_event->getObject2());
+    }
+    else if (p_collision_event->getObject1()->getType() == "Bullet" ||
+        p_collision_event->getObject2()->getType() == "Bullet") {
+
+        df::Object* bullet = (p_collision_event->getObject1()->getType() == "Bullet") // Deletes only bullet
+            ? p_collision_event->getObject1()
+            : p_collision_event->getObject2();
+
+        WM.markForDelete(bullet);
     }
 }
 
