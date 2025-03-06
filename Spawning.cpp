@@ -23,7 +23,7 @@ int Spawning::eventHandler(const df::Event* p_e) {
         int base_spawn_rate = 150;
         int score_threshold = 25;
 
-        int new_spawn_rate = base_spawn_rate - (score / score_threshold) * 10;
+        int new_spawn_rate = base_spawn_rate - (score / score_threshold) * 20;
         if (new_spawn_rate < max_spawn_rate) {
             new_spawn_rate = max_spawn_rate;
         }
