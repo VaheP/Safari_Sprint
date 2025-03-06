@@ -10,9 +10,10 @@
 #include "Points.h"
 
 Vulture::Vulture(Points* points) {
+    setSolidness(df::SOFT);
     setSprite("vulture");
     setType("Vulture");
-    setVelocity(df::Vector(-0.8, 0)); // Move a bit faster
+    setVelocity(df::Vector(-0.85, 0));
     hitPoints = 1;
     p_points = points;
     moveToStart();

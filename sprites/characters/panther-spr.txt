@@ -1,20 +1,18 @@
 <HEADER>
 frames 2
-width 13
-height 4
+width 10
+height 3
 color red
 slowdown 5
 </HEADER>
 <BODY>
-  __/)      )
-;-" }/_   (( 
-`'; }} '-(   
- // _.; ) )  
+ __/)   ( 
+;-" }/_(( 
+ // _.;)) 
 end
-  __/)      )
-;-" }/_   (( 
-`'; }} '-(   
-//  _.;  ))  
+ __/)    )
+;-" }/_(( 
+//  _.; ))
 end
 </BODY>
 <FOOTER>

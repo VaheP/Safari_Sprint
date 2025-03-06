@@ -10,9 +10,10 @@
 #include "Points.h"
 
 Boulder::Boulder(Points* points) {
+    setSolidness(df::SOFT);
     setSprite("rock");
     setType("Boulder");
-    setVelocity(df::Vector(-0.8, 0));
+    setVelocity(df::Vector(-0.85, 0));
     p_points = points;
     moveToStart();
 }

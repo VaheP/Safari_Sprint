@@ -10,9 +10,10 @@
 #include "Points.h"
 
 Panther::Panther(Points* points) {
+    setSolidness(df::SOFT);
     setSprite("panther");
     setType("Panther");
-    setVelocity(df::Vector(-0.8, 0));
+    setVelocity(df::Vector(-0.9, 0));
     hitPoints = 2;
     p_points = points;
     moveToStart();
@@ -30,7 +31,7 @@ void Panther::out() {
         return;
 
     if (p_points) {
-        p_points->addScore(5);  // 5 points for dodging
+        //p_points->addScore(5);  // 5 points for dodging
     }
 
     WM.markForDelete(this);
