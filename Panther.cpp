@@ -14,7 +14,7 @@ Panther::Panther(Points* points) {
     setSprite("panther");
     setType("Panther");
     setVelocity(df::Vector(-0.9, 0));
-    hitPoints = 2;
+    hitPoints = 1;
     p_points = points;
     moveToStart();
 }
